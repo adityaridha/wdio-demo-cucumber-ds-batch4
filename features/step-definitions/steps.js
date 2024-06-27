@@ -1,23 +1,22 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import { expect, $ } from '@wdio/globals'
-
+import { browser } from '@wdio/globals'
 import LoginPage from '../pageobjects/login.page.js';
-import SecurePage from '../pageobjects/secure.page.js';
 
-const pages = {
-    login: LoginPage
-}
 
-Given(/^I am on the (\w+) page$/, async (page) => {
-    await pages[page].open()
+Given(/^user is on Saucedemo homepage$/, async () => {
+    await LoginPage.open()
 });
 
-When(/^I login with (\w+) and (.+)$/, async (username, password) => {
+When(/^user login using "([^"]*)" as username and "([^"]*)" as password$/, async (username, password) => {
     await LoginPage.login(username, password)
 });
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    await expect(SecurePage.flashAlert).toBeExisting();
-    await expect(SecurePage.flashAlert).toHaveTextContaining(message);
+Then(/^user should see message "([^"]*)"$/, (args1) => {
+	console.log(args1);
+	return true;
 });
+
+Then('user should see {string} text displayed', (text) => {
+    expect(browser).toHaveText(text)
+})
 

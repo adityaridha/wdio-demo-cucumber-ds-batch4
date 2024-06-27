@@ -3,7 +3,7 @@ import Page from './page.js';
 
 class LoginPage extends Page {
     get inputUsername () {
-        return $('#username');
+        return $('#user-name');
     }
 
     get inputPassword () {
@@ -11,7 +11,7 @@ class LoginPage extends Page {
     }
 
     get btnSubmit () {
-        return $('button[type="submit"]');
+        return $('#login-button');
     }
 
     async login (username, password) {
@@ -21,7 +21,7 @@ class LoginPage extends Page {
     }
 
     open () {
-        return super.open('login');
+        return super.open('');
     }
 }
 

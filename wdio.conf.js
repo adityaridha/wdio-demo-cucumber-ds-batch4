@@ -1,3 +1,5 @@
+import { browser } from '@wdio/globals'
+
 export const config = {
     //
     // ====================
@@ -51,8 +53,6 @@ export const config = {
     //
     capabilities: [{
         browserName: 'chrome'
-    }, {
-        browserName: 'MicrosoftEdge'
     }],
 
     //
@@ -142,7 +142,7 @@ export const config = {
         // <string[]> Only execute the scenarios with name matching the expression (repeatable).
         name: [],
         // <boolean> hide step definition snippets for pending steps
-        snippets: true,
+        snippets: false,
         // <boolean> hide source uris
         source: true,
         // <boolean> fail if there are any undefined or pending steps
@@ -254,8 +254,11 @@ export const config = {
      * @param {number}             result.duration  duration of scenario in milliseconds
      * @param {object}             context          Cucumber World object
      */
-    // afterStep: function (step, scenario, result, context) {
-    // },
+    afterStep: function (step, scenario, result, context) {
+        if (result.passed) {
+            browser.saveScreenshot('.tmp/failed-test.png')
+        }
+    },
     /**
      *
      * Runs after a Cucumber Scenario.
